@@ -11,18 +11,18 @@ class BitArray {
   public:
     //set desired bit to 1
     inline void setBit(uint16_t i) {
-      if (i < size) arr[i >> 3] |= (1 << (i & 0x07));
+      if(arr!=NULL) if (i < size) arr[i >> 3] |= (1 << (i & 0x07));
     }
 
     //set desired bit to 0
     inline void clearBit(uint16_t i) {
-      if (i < size) arr[i >> 3] &= ~(1 << (i & 0x07));
+      if(arr!=NULL) if (i < size) arr[i >> 3] &= ~(1 << (i & 0x07));
     }
 
     //write 0 or 1 to desired bit
     inline int8_t writeBit(uint8_t val, uint16_t i) {
 
-      if (i >= size) return -1;
+      if (arr!=NULL || i >= size) return -1;
 
       if (val > 0) arr[i >> 3] |= (1 << (i & 0x07));
       else arr[i >> 3] &= ~(1 << (i & 0x07));
@@ -32,7 +32,7 @@ class BitArray {
 
     //read value of desired bit
     inline int8_t readBit(uint16_t i) {
-      if (i >= size) return -1;
+      if (arr!=NULL || i >= size) return -1;
 
       if (arr[i >> 3] & (1 << (i & 0x07))) return 1;
 
@@ -40,8 +40,9 @@ class BitArray {
     }
 
     //return lenght of initalised bit array
-    inline uint16_t length() {
-      return size;
+    inline int16_t length() {
+      if(arr!=NULL) return size;
+      return -1;
     }
 
     //constructor
@@ -59,7 +60,7 @@ class BitArray {
 
     //deconstructor
     ~BitArray() {
-      free(arr); //free allocated memory
+      if(arr!=NULL) free(arr); //free allocated memory
     }
 };
 
