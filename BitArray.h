@@ -53,9 +53,7 @@ class BitArray {
                                                                     //size >> 3 equivalent to size/8 (integer division)
                                                                     //size & 0x07 equivalent to size%8 (modulo)
 
-      arr = malloc(sizeof(uint8_t) * bytes); //allocate memory to arr
-
-      memset(arr, 0, bytes); //initialise arr to 0
+      arr = calloc(sizeof(uint8_t) * bytes); //'calloc()' gives you a zero-initialized buffer, while 'malloc()' leaves the memory uninitialized.
     }
 
     //deconstructor
